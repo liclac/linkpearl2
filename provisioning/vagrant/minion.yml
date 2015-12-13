@@ -1,0 +1,4 @@
+master: 10.10.10.10
+state_verbose: false
+grains:
+  vagrant: true
