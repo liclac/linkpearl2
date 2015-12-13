@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
     box.vm.provision "salt" do |salt|
       salt.bootstrap_options = "-F -c /tmp -i default"
       salt.install_master = true
-      salt.minion_config = "provisioning/vagrant/minion.yml"
+      salt.minion_config = "provisioning/vagrant/minions/default.yml"
       salt.minion_key = "provisioning/vagrant/default.pem"
       salt.minion_pub = "provisioning/vagrant/default.pub"
       salt.master_config = "provisioning/vagrant/master.yml"
@@ -52,7 +52,7 @@ Vagrant.configure(2) do |config|
       box.vm.network "private_network", ip: "10.10.10.#{11+i}"
       box.vm.provision "salt" do |salt|
       salt.bootstrap_options = "-F -c /tmp -i worker#{1+i}"
-      salt.minion_config = "provisioning/vagrant/minion.yml"
+      salt.minion_config = "provisioning/vagrant/minions/worker.yml"
       salt.run_highstate = true
       salt.colorize = true
       end
