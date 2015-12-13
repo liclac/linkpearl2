@@ -3,3 +3,4 @@
 /lib
 /include
 /local
+/provisioning/pillar/local.sls
