@@ -27,7 +27,7 @@ Vagrant.configure(2) do |config|
     set_limits box, cpus: 1, memory: 512
     
     # Forward ports to the host machine
-    box.vm.network "forwarded_port", guest: 80, host: 8080
+    box.vm.network "forwarded_port", guest: 8000, host: 8000
     
     # Create a private network between the machines
     box.vm.network "private_network", ip: "10.10.10.10"
