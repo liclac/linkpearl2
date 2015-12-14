@@ -14,6 +14,9 @@ class Server(CachingMixin, models.Model):
     name = models.CharField(max_length=50)
     
     objects = CachingManager()
+    
+    def __unicode__(self):
+        return self.name
 
 # class GrandCompany(CachingMixin, models.Model):
 #     name = models.CharField(max_length=50)
@@ -24,6 +27,9 @@ class Server(CachingMixin, models.Model):
 
 class Title(models.Model):
     name = models.CharField(max_length=50)
+    
+    def __unicode__(self):
+        return self.name
 
 # class FreeCompany(models.Model):
 #     lodestone_id = models.BigIntegerField()
@@ -45,3 +51,6 @@ class Character(models.Model):
     # race = models.ForeignKey(Race, related_name='characters')
     # clan = models.IntegerField()
     # gender = models.IntegerField(choices=GENDER_CHOICES)
+    
+    def __unicode__(self):
+        return u"{0} {1}".format(self.first_name, self.last_name)
