@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'djcelery',
     'linkpearl',
+    'linkpearl_lodestone',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -82,6 +83,24 @@ DATABASES = {
         'NAME': 'linkpearl',
     }
 }
+
+
+# Caches
+# https://docs.djangoproject.com/en/1.9/ref/settings/#caches
+
+CACHES = {
+    'default': {
+        'BACKEND': 'caching.backends.memcached.PyLibMCCache',
+        'LOCATION': '127.0.0.1',
+        'KEY_PREFIX': 'linkpearl:',
+    },
+}
+
+CACHE_COUNT_TIMEOUT = 60
+
+CACHE_MACHINE_USE_REDIS = True
+
+REDIS_BACKEND = 'redis://localhost:6379'
 
 
 # Password validation
