@@ -7,14 +7,15 @@ class BaseParser(object):
     
     model_class = None
     
-    def get_url_for(self, id):
+    def get_url_for(self, obj):
         raise NotImplemented
     
-    def import_(self, id, obj=None, **kwargs):
-        if not obj:
-            obj = self.model_class(**kwargs)
-        
-        url = self.get_url_for(id)
+    def import_(self, **kwargs):
+        obj = self.model_class(**kwargs)
+        return self.update(obj)
+    
+    def update(self, obj):
+        url = self.get_url_for(obj)
         html = self.fetch(url)
         soup = self.consume(html)
         return self.save(soup, obj)
@@ -33,8 +34,8 @@ class BaseParser(object):
 class CharacterParser(BaseParser):
     model_class = Character
     
-    def get_url_for(self, id):
-        return u"http://na.finalfantasyxiv.com/lodestone/character/{0}/".format(id)
+    def get_url_for(self, obj):
+        return u"http://na.finalfantasyxiv.com/lodestone/character/{0}/".format(obj.lodestone_id)
     
     def save(self, soup, obj):
         name_box = soup.find(class_='player_name_txt').find('h2')
