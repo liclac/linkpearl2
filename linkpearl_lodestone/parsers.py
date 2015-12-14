@@ -1,7 +1,8 @@
+import re
 import requests
 from django.utils.text import slugify
 from bs4 import BeautifulSoup
-from linkpearl_lodestone.models import Race, Server, Title, Character
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Title, Character
 
 class BaseParser(object):
     USER_AGENT = u"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"
@@ -33,12 +34,25 @@ class BaseParser(object):
         raise NotImplemented
 
 class CharacterParser(BaseParser):
+    GC_RANK_REGEXES = [
+        re.compile(r'(\w+) Private Third Class'),
+        re.compile(r'(\w+) Private Second Class'),
+        re.compile(r'(\w+) Private First Class'),
+        re.compile(r'(\w+) Corporal'),
+        re.compile(r'(\w+) Sergeant Third Class'),
+        re.compile(r'(\w+) Sergeant Second Class'),
+        re.compile(r'(\w+) Sergeant First Class'),
+        re.compile(r'Chief (\w+) Sergeant'),
+        re.compile(r'Second (\w+) Lieutenant'),
+    ]
+    
     model_class = Character
     
     def get_url_for(self, obj):
         return u"http://na.finalfantasyxiv.com/lodestone/character/{0}/".format(obj.lodestone_id)
     
     def save(self, soup, obj):
+        # General Information
         name_box = soup.find(class_='player_name_txt').find('h2')
         name_link = name_box.find('a')
         race_box = soup.find(class_='chara_profile_title')
@@ -60,6 +74,29 @@ class CharacterParser(BaseParser):
             obj.race.clan_2 = clan_s
             obj.race.save()
         obj.gender = Character.GENDER_M if gender_s == u'\u2642' else Character.GENDER_F
+        
+        # Key/Value boxes
+        for row in soup.find_all(class_='chara_profile_box_info'):
+            key = row.find(class_='txt').string
+            value_box = row.find(class_='txt_name')
+            
+            if key == u"Grand Company":
+                gc_name, gc_rank_name = value_box.string.split('/')
+                
+                gc_rank_match = None
+                obj.gc_rank = 0
+                for i, rank_re in enumerate(CharacterParser.GC_RANK_REGEXES):
+                    gc_rank_match = rank_re.match(gc_rank_name)
+                    if gc_rank_match:
+                        obj.gc_rank = i + 1
+                        break
+                
+                try:
+                    obj.gc = GrandCompany.objects.get(name=gc_name)
+                except GrandCompany.DoesNotExist:
+                    slug = slugify(gc_name.split(' ')[-1])
+                    short = gc_rank_match.group(1)
+                    obj.gc = GrandCompany.objects.create(name=gc_name, slug=slug, short=short)
         
         obj.save()
 
