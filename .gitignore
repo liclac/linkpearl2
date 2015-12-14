@@ -6,3 +6,4 @@ __pycache__
 /include
 /local
 /provisioning/pillar/local.sls
+*.sublime-workspace
