@@ -6,10 +6,12 @@ from linkpearl_lodestone.parsers import CharacterParser
 @admin.register(Race)
 class RaceAdmin(admin.ModelAdmin):
     list_display = ('name',)
+    prepopulated_fields = {'slug': ['name']}
 
 @admin.register(Server)
 class ServerAdmin(admin.ModelAdmin):
     list_display = ('name',)
+    prepopulated_fields = {'slug': ['name']}
 
 @admin.register(Title)
 class TitleAdmin(admin.ModelAdmin):

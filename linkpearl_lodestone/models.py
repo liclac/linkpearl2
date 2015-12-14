@@ -5,6 +5,7 @@ from caching.base import CachingManager, CachingMixin
 
 class Race(CachingMixin, models.Model):
     name = models.CharField(max_length=50)
+    slug = models.CharField(max_length=50, unique=True)
     clan_1 = models.CharField(max_length=50)
     clan_2 = models.CharField(max_length=50, blank=True)
     
@@ -15,6 +16,7 @@ class Race(CachingMixin, models.Model):
 
 class Server(CachingMixin, models.Model):
     name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=50, unique=True)
     
     objects = CachingManager()
     

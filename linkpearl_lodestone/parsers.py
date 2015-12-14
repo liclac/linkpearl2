@@ -1,4 +1,5 @@
 import requests
+from django.utils.text import slugify
 from bs4 import BeautifulSoup
 from linkpearl_lodestone.models import Race, Server, Title, Character
 
@@ -49,11 +50,11 @@ class CharacterParser(BaseParser):
         race_s, clan_s, gender_s = race_box.string.split(' / ')
         
         obj.lodestone_id = int(id_s)
-        obj.server = Server.objects.get_or_create(name=server_s)[0]
+        obj.server = Server.objects.get_or_create(name=server_s, defaults={'slug': slugify(server_s)})[0]
         obj.first_name, obj.last_name = name_s.split(' ')
         obj.title = Title.objects.get_or_create(name=title_s)[0]
         
-        obj.race = Race.objects.get_or_create(name=race_s, defaults={ 'clan_1': clan_s })[0]
+        obj.race = Race.objects.get_or_create(name=race_s, defaults={'slug': slugify(race_s), 'clan_1': clan_s})[0]
         obj.clan = 1 if clan_s == obj.race.clan_1 else 2
         if obj.clan == 2 and not obj.race.clan_2:
             obj.race.clan_2 = clan_s
