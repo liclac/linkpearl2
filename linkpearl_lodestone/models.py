@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.contrib.postgres.fields import JSONField
 from django.contrib.auth.models import User
 from caching.base import CachingManager, CachingMixin
 
@@ -101,6 +102,8 @@ class Character(models.Model):
     jobs = models.ManyToManyField(Job, through='Level')
     minions = models.ManyToManyField(Minion, related_name='characters')
     mounts = models.ManyToManyField(Mount, related_name='characters')
+    
+    attrs = JSONField(default={}, blank=True)
     
     def __unicode__(self):
         return u"{0} {1}".format(self.first_name, self.last_name)

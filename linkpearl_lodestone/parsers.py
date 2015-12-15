@@ -159,6 +159,38 @@ class CharacterParser(BaseParser):
                 minion = Minion.objects.get_or_create(name=name)[0]
                 obj.minions.add(minion)
         
+        
+        
+        # Attributes
+        p_attr_spans = soup.find(class_='param_list_attributes').find_all('span')
+        for i, attr in enumerate(['str', 'dex', 'vit', 'int', 'mnd', 'pie']):
+            obj.attrs[attr] = int(p_attr_spans[i].string)
+        
+        ATTR_KEYS = {
+            "Accuracy": 'acc',
+            "Critical Hit Rate": 'crit',
+            "Determination": 'det',
+            "Defense": 'def',
+            "Parry": 'par',
+            "Magic Defense": 'mdef',
+            "Attack Power": 'atk',
+            "Skill Speed": 'sks',
+            "Attack Magic Potency": 'mpot',
+            "Healing Magic Potency": 'hpot',
+            "Spell Speed": 'sps',
+        }
+        for attr_list in soup.find_all(class_='param_list'):
+            for row in attr_list.find_all('li'):
+                children = list(row.children)
+                attr = children[0].string
+                value = int(children[-1].string)
+                if attr in ATTR_KEYS:
+                    obj.attrs[ATTR_KEYS[attr]] = value
+        
+        obj.attrs['hp'] = int(soup.find(class_='hp').string)
+        obj.attrs['mp'] = int(soup.find(class_='mp').string)
+        obj.attrs['tp'] = int(soup.find(class_='tp').string)
+        
         obj.save()
 
         return obj
