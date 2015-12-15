@@ -2,7 +2,7 @@ import re
 import requests
 from django.utils.text import slugify
 from bs4 import BeautifulSoup
-from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, FreeCompany, Character, Level
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Character, Level
 
 class BaseParser(object):
     USER_AGENT = u"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"
@@ -141,6 +141,23 @@ class CharacterParser(BaseParser):
                 level = Level.objects.update_or_create(character=obj, job=job, defaults={
                     'level': level, 'exp_at': exp_at, 'exp_of': exp_of
                 })[0]
+        
+        
+        
+        # Minions and Mounts
+        existing_mount_names = [ m.name for m in obj.mounts.all() ]
+        for link in soup.find(class_='minion_box').find_all('a'):
+            name = link['title']
+            if not name in existing_mount_names:
+                mount = Mount.objects.get_or_create(name=name)[0]
+                obj.mounts.add(mount)
+        
+        existing_minion_names = [ m.name for m in obj.minions.all() ]
+        for link in soup.find(class_='minion_box').find_all('a'):
+            name = link['title']
+            if not name in existing_minion_names:
+                minion = Minion.objects.get_or_create(name=name)[0]
+                obj.minions.add(minion)
         
         obj.save()
 

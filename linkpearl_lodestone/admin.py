@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, FreeCompany, Character, Level
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Mount, Minion, FreeCompany, Character, Level
 from linkpearl_lodestone.parsers import CharacterParser
 
 @admin.register(Race)
@@ -25,6 +25,14 @@ class JobAdmin(admin.ModelAdmin):
 class TitleAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
+@admin.register(Mount)
+class MountAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+@admin.register(Minion)
+class MinionAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
 @admin.register(FreeCompany)
 class FreeCompanyAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -46,13 +54,19 @@ class CharacterForm(forms.ModelForm):
 class LevelInline(admin.TabularInline):
     model = Level
 
+class MountInline(admin.StackedInline):
+    model = Mount.characters.through
+
+class MinionInline(admin.StackedInline):
+    model = Minion.characters.through
+
 @admin.register(Character)
 class CharacterAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'server', 'title', 'race', 'clan_str', 'gender')
-    exclude = ('levels',)
+    exclude = ('minions', 'mounts', 'levels')
     actions = ['update']
     form = CharacterForm
-    inlines = [LevelInline]
+    inlines = [LevelInline, MountInline, MinionInline]
     
     def clan_str(self, obj):
         return obj.race.clan_1 if obj.clan == 1 else obj.race.clan_2 or "???"

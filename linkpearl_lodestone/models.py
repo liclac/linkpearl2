@@ -51,6 +51,22 @@ class Title(models.Model):
     def __unicode__(self):
         return self.name
 
+class Minion(CachingMixin, models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    
+    objects = CachingManager()
+    
+    # def __unicode__(self):
+    #     return self.name
+
+class Mount(CachingMixin, models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    
+    objects = CachingManager()
+    
+    # def __unicode__(self):
+    #     return self.name
+
 class FreeCompany(models.Model):
     class Meta:
         verbose_name_plural = u"free companies"
@@ -83,6 +99,8 @@ class Character(models.Model):
     fc = models.ForeignKey(FreeCompany, verbose_name=u"Free Company", related_name='characters', blank=True, null=True)
     
     jobs = models.ManyToManyField(Job, through='Level')
+    minions = models.ManyToManyField(Minion, related_name='characters')
+    mounts = models.ManyToManyField(Mount, related_name='characters')
     
     def __unicode__(self):
         return u"{0} {1}".format(self.first_name, self.last_name)
