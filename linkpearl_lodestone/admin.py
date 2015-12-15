@@ -43,7 +43,7 @@ class CharacterForm(forms.ModelForm):
                 (2, obj.race.clan_2 or "???"),
             ]
 
-class LevelInline(admin.StackedInline):
+class LevelInline(admin.TabularInline):
     model = Level
 
 @admin.register(Character)
