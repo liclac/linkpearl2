@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from linkpearl_lodestone.models import Race, Server, GrandCompany, Title, Character
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Title, FreeCompany, Character
 from linkpearl_lodestone.parsers import CharacterParser
 
 @admin.register(Race)
@@ -19,6 +19,10 @@ class GrandCompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Title)
 class TitleAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+@admin.register(FreeCompany)
+class FreeCompanyAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 class CharacterForm(forms.ModelForm):

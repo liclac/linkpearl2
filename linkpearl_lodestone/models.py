@@ -42,16 +42,22 @@ class Title(models.Model):
     def __unicode__(self):
         return self.name
 
-# class FreeCompany(models.Model):
-#     lodestone_id = models.BigIntegerField()
-#     name = models.CharField(max_length=50)
+class FreeCompany(models.Model):
+    class Meta:
+        verbose_name_plural = u"free companies"
+    
+    lodestone_id = models.CharField(max_length=25, unique=True)
+    name = models.CharField(max_length=50)
+    
+    def __unicode__(self):
+        return self.name
 
 class Character(models.Model):
     GENDER_M = 1
     GENDER_F = 2
     GENDER_CHOICES = [ (GENDER_M, u"Male"), (GENDER_F, u"Female") ]
     
-    lodestone_id = models.BigIntegerField()
+    lodestone_id = models.CharField(max_length=25, unique=True)
     user = models.ForeignKey(User, related_name='characters', blank=True, null=True)
     
     server = models.ForeignKey(Server, related_name='characters')
@@ -65,6 +71,7 @@ class Character(models.Model):
     
     gc = models.ForeignKey(GrandCompany, verbose_name=u"Grand Company", related_name='characters', blank=True, null=True)
     gc_rank = models.IntegerField(u"Grand Company Rank", default=0)
+    fc = models.ForeignKey(FreeCompany, verbose_name=u"Free Company", related_name='characters', blank=True, null=True)
     
     def __unicode__(self):
         return u"{0} {1}".format(self.first_name, self.last_name)

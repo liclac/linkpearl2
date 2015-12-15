@@ -2,7 +2,7 @@ import re
 import requests
 from django.utils.text import slugify
 from bs4 import BeautifulSoup
-from linkpearl_lodestone.models import Race, Server, GrandCompany, Title, Character
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Title, FreeCompany, Character
 
 class BaseParser(object):
     USER_AGENT = u"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"
@@ -76,6 +76,7 @@ class CharacterParser(BaseParser):
         obj.gender = Character.GENDER_M if gender_s == u'\u2642' else Character.GENDER_F
         
         # Key/Value boxes
+        fc_present = False
         for row in soup.find_all(class_='chara_profile_box_info'):
             key = row.find(class_='txt').string
             value_box = row.find(class_='txt_name')
@@ -97,6 +98,18 @@ class CharacterParser(BaseParser):
                     slug = slugify(gc_name.split(' ')[-1])
                     short = gc_rank_match.group(1)
                     obj.gc = GrandCompany.objects.create(name=gc_name, slug=slug, short=short)
+            
+            elif key == u"Free Company":
+                fc_present = True
+                
+                fc_link = value_box.find('a')
+                fc_name = fc_link.string
+                fc_id = filter(None, fc_link['href'].split('/'))[-1]
+                
+                obj.fc = FreeCompany.objects.get_or_create(lodestone_id=fc_id, defaults={'name': fc_name})[0]
+        
+        if not fc_present:
+            obj.fc = None
         
         obj.save()
 
