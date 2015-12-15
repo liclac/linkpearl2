@@ -2,7 +2,7 @@ import re
 import requests
 from django.utils.text import slugify
 from bs4 import BeautifulSoup
-from linkpearl_lodestone.models import Race, Server, GrandCompany, Title, FreeCompany, Character
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, FreeCompany, Character, Level
 
 class BaseParser(object):
     USER_AGENT = u"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/601.3.9 (KHTML, like Gecko) Version/9.0.2 Safari/601.3.9"
@@ -75,6 +75,8 @@ class CharacterParser(BaseParser):
             obj.race.save()
         obj.gender = Character.GENDER_M if gender_s == u'\u2642' else Character.GENDER_F
         
+        
+        
         # Key/Value boxes
         fc_present = False
         for row in soup.find_all(class_='chara_profile_box_info'):
@@ -110,6 +112,35 @@ class CharacterParser(BaseParser):
         
         if not fc_present:
             obj.fc = None
+        
+        
+        
+        # Classes and levels
+        for table in soup.find_all(class_='class_list'):
+            cells = table.find_all('td')
+            for i in xrange(len(cells) / 3):
+                name_cell = cells[(i * 3) + 0]
+                level_cell = cells[(i * 3) + 1]
+                exp_cell = cells[(i * 3) + 2]
+                
+                name_strings = list(name_cell.stripped_strings)
+                
+                # Skip layout filler cells
+                if not name_strings:
+                    continue
+                
+                # Skip not-yet-unlocked jobs
+                if level_cell.string == '-':
+                    continue
+                
+                name = name_strings[-1]
+                level = int(level_cell.string)
+                exp_at, exp_of = [int(x) for x in exp_cell.string.split(' / ')]
+                
+                job = Job.objects.get_or_create(name=name)[0]
+                level = Level.objects.update_or_create(character=obj, job=job, defaults={
+                    'level': level, 'exp_at': exp_at, 'exp_of': exp_of
+                })[0]
         
         obj.save()
 

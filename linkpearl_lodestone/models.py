@@ -36,6 +36,15 @@ class GrandCompany(CachingMixin, models.Model):
     def __unicode__(self):
         return self.name
 
+class Job(CachingMixin, models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    code = models.CharField(max_length=3, blank=True)
+    
+    objects = CachingManager()
+    
+    def __unicode__(self):
+        return self.name
+
 class Title(models.Model):
     name = models.CharField(max_length=50, unique=True)
     
@@ -73,5 +82,17 @@ class Character(models.Model):
     gc_rank = models.IntegerField(u"Grand Company Rank", default=0)
     fc = models.ForeignKey(FreeCompany, verbose_name=u"Free Company", related_name='characters', blank=True, null=True)
     
+    jobs = models.ManyToManyField(Job, through='Level')
+    
     def __unicode__(self):
         return u"{0} {1}".format(self.first_name, self.last_name)
+
+class Level(models.Model):
+    character = models.ForeignKey(Character)
+    job = models.ForeignKey(Job)
+    level = models.IntegerField()
+    exp_at = models.IntegerField()
+    exp_of = models.IntegerField()
+    
+    def __unicode__(self):
+        return u"{0} (Lv{1})".format(self.job.name, self.level)
