@@ -56,16 +56,16 @@ class Minion(CachingMixin, models.Model):
     
     objects = CachingManager()
     
-    # def __unicode__(self):
-    #     return self.name
+    def __unicode__(self):
+        return self.name
 
 class Mount(CachingMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     
     objects = CachingManager()
     
-    # def __unicode__(self):
-    #     return self.name
+    def __unicode__(self):
+        return self.name
 
 class FreeCompany(models.Model):
     class Meta:
