@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'djcelery',
     'linkpearl',
     'linkpearl_lodestone',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -149,3 +150,15 @@ import djcelery
 djcelery.setup_loader()
 
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+
+
+# Django Debug Toolbar
+# http://django-debug-toolbar.readthedocs.org/en/1.4/index.html
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_COLLAPSED': True,
+    'SHOW_TOOLBAR_CALLBACK': 'linkpearl.settings._show_toolbar_callback',
+}
+
+def _show_toolbar_callback(request):
+    return DEBUG and not request.is_ajax()
