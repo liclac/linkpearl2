@@ -7,12 +7,16 @@ base:
 
   'roles:db':
     - match: grain
-    - postgres
+    - postgres.server
     - redis
     - memcached
     - rabbitmq.server
     - linkpearl.database
+    - linkpearl.rabbitmq
 
   'roles:worker':
     - match: grain
+    - memcached
+    - postgres.client
     - rabbitmq.client
+    - linkpearl.worker

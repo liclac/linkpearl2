@@ -151,6 +151,10 @@ djcelery.setup_loader()
 
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 
+CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
+
+BROKER_URL = 'amqp://linkpearl:linkpearl@10.10.10.10:5672//'
+
 
 # Django Debug Toolbar
 # http://django-debug-toolbar.readthedocs.org/en/1.4/index.html

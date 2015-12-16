@@ -1,0 +1,15 @@
+[Unit]
+Description=Linkpearl worker
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory={{ pillar['linkpearl']['root'] }}
+Environment=PATH={{ pillar['linkpearl']['root'] }}/bin:$PATH
+ExecStart={{ pillar['linkpearl']['root'] }}/bin/python manage.py celery worker -n {{ grains['id'] }}\
+    --concurrency {{ pillar['linkpearl']['worker']['concurrency'] }}\
+    {% if pillar['linkpearl']['worker']['autoreload'] %}--autoreload{% endif %}
+
+[Install]
+WantedBy=multi-user.target

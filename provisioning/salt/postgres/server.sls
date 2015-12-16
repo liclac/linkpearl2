@@ -1,8 +1,10 @@
+include:
+  - postgres.client
+
 postgresql:
   pkg.installed:
     - pkgs:
       - postgresql-9.4
-      - libpq-dev
   service.running:
     - enable: True
     - require:
@@ -13,5 +15,8 @@ postgresql_vagrant:
   postgres_user.present:
     - name: vagrant
     - superuser: True
+    - require:
+      - service: postgresql
+      - pkg: postgresql-client
 {% endif %}
 
