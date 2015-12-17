@@ -89,7 +89,7 @@ class Character(models.Model):
     server = models.ForeignKey(Server, related_name='characters')
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    title = models.ForeignKey(Title, related_name='characters')
+    title = models.ForeignKey(Title, related_name='characters', blank=True, null=True)
     
     race = models.ForeignKey(Race, related_name='characters', null=True)
     clan = models.IntegerField(choices=[(1, u"First"), (2, u"Second")])

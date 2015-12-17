@@ -53,14 +53,19 @@ class CharacterParser(BaseParser):
         
         id_s = filter(None, name_link['href'].split('/'))[-1]
         name_s = name_link.string
-        title_s = name_box.find(class_='chara_title').string
         server_s = name_box.find('span').string[2:-1]
         race_s, clan_s, gender_s = race_box.string.split(' / ')
         
         obj.lodestone_id = int(id_s)
         obj.server = Server.objects.get_or_create(name=server_s, defaults={'slug': slugify(server_s)})[0]
         obj.first_name, obj.last_name = name_s.split(' ')
-        obj.title = Title.objects.get_or_create(name=title_s)[0]
+        
+        title_e = name_box.find(class_='chara_title')
+        if title_e:
+            title_s = title_e.string
+            obj.title = Title.objects.get_or_create(name=title_s)[0]
+        else:
+            obj.title = None
         
         obj.race = Race.objects.get_or_create(name=race_s, defaults={'slug': slugify(race_s), 'clan_1': clan_s})[0]
         obj.clan = 1 if clan_s == obj.race.clan_1 else 2
