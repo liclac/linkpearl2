@@ -77,3 +77,6 @@ class CharacterAdmin(admin.ModelAdmin):
         p = CharacterParser()
         for char in queryset:
             p.update(char)
+    
+    def get_queryset(self, request):
+        return super(CharacterAdmin, self).get_queryset(request).select_related('title')
