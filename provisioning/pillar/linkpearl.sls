@@ -7,4 +7,4 @@ linkpearl:
   rabbitmq_pass: linkpearl
   worker:
     autoreload: false
-    concurrency: 15
+    concurrency: 5
