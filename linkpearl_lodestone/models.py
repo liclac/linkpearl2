@@ -105,6 +105,9 @@ class Character(models.Model):
     
     attrs = JSONField(default={}, blank=True)
     
+    def get_lodestone_url(self):
+        return u"http://na.finalfantasyxiv.com/lodestone/character/{0}/".format(self.lodestone_id)
+    
     def __unicode__(self):
         return u"{0} {1}".format(self.first_name, self.last_name)
 
