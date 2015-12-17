@@ -83,7 +83,7 @@ class Character(models.Model):
     GENDER_F = 2
     GENDER_CHOICES = [ (GENDER_M, u"Male"), (GENDER_F, u"Female") ]
     
-    lodestone_id = models.CharField(max_length=25, unique=True)
+    lodestone_id = models.IntegerField(unique=True)
     user = models.ForeignKey(User, related_name='characters', blank=True, null=True)
     
     server = models.ForeignKey(Server, related_name='characters')
