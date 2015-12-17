@@ -46,6 +46,11 @@ class CharacterParser(BaseParser):
     model_class = Character
     
     def save(self, soup, obj):
+        # Sanity check for broken character profiles
+        if soup.find(class_='hp').string == '0':
+            return None
+        
+        
         # General Information
         name_box = soup.find(class_='player_name_txt').find('h2')
         name_link = name_box.find('a')
@@ -114,6 +119,63 @@ class CharacterParser(BaseParser):
         
         
         
+        # Attributes
+        p_attr_spans = soup.find(class_='param_list_attributes').find_all('span')
+        for i, attr in enumerate(['str', 'dex', 'vit', 'int', 'mnd', 'pie']):
+            obj.attrs[attr] = int(p_attr_spans[i].string)
+        
+        ATTR_KEYS = {
+            "Accuracy": 'acc',
+            "Critical Hit Rate": 'crit',
+            "Determination": 'det',
+            "Defense": 'def',
+            "Parry": 'par',
+            "Magic Defense": 'mdef',
+            "Attack Power": 'atk',
+            "Skill Speed": 'sks',
+            "Attack Magic Potency": 'mpot',
+            "Healing Magic Potency": 'hpot',
+            "Spell Speed": 'sps',
+        }
+        for attr_list in soup.find_all(class_='param_list'):
+            for row in attr_list.find_all('li'):
+                children = list(row.children)
+                attr = children[0].string
+                value = int(children[-1].string)
+                if attr in ATTR_KEYS:
+                    obj.attrs[ATTR_KEYS[attr]] = value
+        
+        e_str_or_0 = lambda e: int(e.string or 0) if e else 0
+        obj.attrs['hp'] = e_str_or_0(soup.find(class_='hp'))
+        obj.attrs['mp'] = e_str_or_0(soup.find(class_='mp'))
+        obj.attrs['cp'] = e_str_or_0(soup.find(class_='cp'))
+        obj.attrs['gp'] = e_str_or_0(soup.find(class_='gp'))
+        obj.attrs['tp'] = e_str_or_0(soup.find(class_='tp'))
+        
+        
+        
+        # Save the character once basic data is populated
+        obj.save()
+        
+        
+        
+        # Minions and Mounts
+        existing_mount_names = [ m.name for m in obj.mounts.all() ]
+        for link in soup.find(class_='minion_box').find_all('a'):
+            name = link['title']
+            if not name in existing_mount_names:
+                mount = Mount.objects.get_or_create(name=name)[0]
+                obj.mounts.add(mount)
+        
+        existing_minion_names = [ m.name for m in obj.minions.all() ]
+        for link in soup.find(class_='minion_box').find_all('a'):
+            name = link['title']
+            if not name in existing_minion_names:
+                minion = Minion.objects.get_or_create(name=name)[0]
+                obj.minions.add(minion)
+        
+        
+        
         # Classes and levels
         for table in soup.find_all(class_='class_list'):
             cells = table.find_all('td')
@@ -143,53 +205,7 @@ class CharacterParser(BaseParser):
         
         
         
-        # Minions and Mounts
-        existing_mount_names = [ m.name for m in obj.mounts.all() ]
-        for link in soup.find(class_='minion_box').find_all('a'):
-            name = link['title']
-            if not name in existing_mount_names:
-                mount = Mount.objects.get_or_create(name=name)[0]
-                obj.mounts.add(mount)
-        
-        existing_minion_names = [ m.name for m in obj.minions.all() ]
-        for link in soup.find(class_='minion_box').find_all('a'):
-            name = link['title']
-            if not name in existing_minion_names:
-                minion = Minion.objects.get_or_create(name=name)[0]
-                obj.minions.add(minion)
-        
-        
-        
-        # Attributes
-        p_attr_spans = soup.find(class_='param_list_attributes').find_all('span')
-        for i, attr in enumerate(['str', 'dex', 'vit', 'int', 'mnd', 'pie']):
-            obj.attrs[attr] = int(p_attr_spans[i].string)
-        
-        ATTR_KEYS = {
-            "Accuracy": 'acc',
-            "Critical Hit Rate": 'crit',
-            "Determination": 'det',
-            "Defense": 'def',
-            "Parry": 'par',
-            "Magic Defense": 'mdef',
-            "Attack Power": 'atk',
-            "Skill Speed": 'sks',
-            "Attack Magic Potency": 'mpot',
-            "Healing Magic Potency": 'hpot',
-            "Spell Speed": 'sps',
-        }
-        for attr_list in soup.find_all(class_='param_list'):
-            for row in attr_list.find_all('li'):
-                children = list(row.children)
-                attr = children[0].string
-                value = int(children[-1].string)
-                if attr in ATTR_KEYS:
-                    obj.attrs[ATTR_KEYS[attr]] = value
-        
-        obj.attrs['hp'] = int(soup.find(class_='hp').string)
-        obj.attrs['mp'] = int(soup.find(class_='mp').string)
-        obj.attrs['tp'] = int(soup.find(class_='tp').string)
-        
+        # Save it again for good measure (no-op if unchanged)
         obj.save()
 
         return obj
