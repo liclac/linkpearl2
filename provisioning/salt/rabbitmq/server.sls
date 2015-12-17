@@ -10,3 +10,6 @@ rabbitmq-server:
     - enable: True
     - require:
       - pkg: rabbitmq-server
+
+rabbitmq_management:
+  rabbitmq_plugin.enabled: []
