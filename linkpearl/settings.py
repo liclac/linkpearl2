@@ -82,6 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'linkpearl',
+        'HOST': '10.10.10.10',
+        'USER': 'linkpearl',
+        'PASSWORD': 'linkpearl',
     }
 }
 
@@ -92,7 +95,7 @@ DATABASES = {
 CACHES = {
     'default': {
         'BACKEND': 'caching.backends.memcached.PyLibMCCache',
-        'LOCATION': '127.0.0.1',
+        'LOCATION': '10.10.10.10',
         'KEY_PREFIX': 'linkpearl:',
     },
 }
@@ -101,7 +104,7 @@ CACHE_COUNT_TIMEOUT = 60
 
 CACHE_MACHINE_USE_REDIS = True
 
-REDIS_BACKEND = 'redis://localhost:6379'
+REDIS_BACKEND = 'redis://10.10.10.10:6379'
 
 
 # Password validation
@@ -149,7 +152,7 @@ STATIC_URL = '/static/'
 import djcelery
 djcelery.setup_loader()
 
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND='redis://10.10.10.10/0'
 
 CELERY_ACCEPT_CONTENT = ['pickle', 'json', 'msgpack', 'yaml']
 
