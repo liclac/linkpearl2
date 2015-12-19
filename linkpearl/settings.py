@@ -169,3 +169,11 @@ DEBUG_TOOLBAR_CONFIG = {
 
 def _show_toolbar_callback(request):
     return DEBUG and not request.is_ajax()
+
+
+
+# Load overrides from local_settings.py
+try:
+    from local_settings import *
+except ImportError:
+    pass

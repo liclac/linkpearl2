@@ -7,4 +7,5 @@ celerybeat-schedule
 /include
 /local
 /provisioning/pillar/local.sls
+/linkpearl/local_settings.py
 *.sublime-workspace
