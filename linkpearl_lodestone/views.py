@@ -4,4 +4,4 @@ from linkpearl_lodestone.models import Character
 
 class CharacterViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CharacterSerializer
-    queryset = Character.objects.prefetch_related('jobs', 'minions', 'mounts').all()
+    queryset = Character.objects.select_related('user').prefetch_related('jobs', 'minions', 'mounts').all()
