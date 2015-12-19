@@ -174,6 +174,12 @@ REST_FRAMEWORK = {
 }
 
 
+# CORS Headers
+# https://github.com/ottoyiu/django-cors-headers/
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+
 # Django Debug Toolbar
 # http://django-debug-toolbar.readthedocs.org/en/1.4/index.html
 

@@ -1,0 +1,5 @@
+<ul>
+{{#each model as |character|}}
+  <li>{{#link-to 'characters.show' character}}{{character.first_name}} {{character.last_name}}{{/link-to}}</li>
+{{/each}}
+</ul>
