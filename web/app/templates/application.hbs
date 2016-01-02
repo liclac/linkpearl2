@@ -13,6 +13,12 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stats <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            {{#link-to 'stats.servers' tagName='li'}}{{#link-to 'stats.servers'}}Servers{{/link-to}}{{/link-to}}
+          </ul>
+        </li>
         {{#link-to 'characters' tagName='li'}}{{#link-to 'characters'}}Characters{{/link-to}}{{/link-to}}
       </ul>
       {{!--
