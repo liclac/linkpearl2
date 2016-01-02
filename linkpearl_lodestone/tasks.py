@@ -6,7 +6,7 @@ from linkpearl_lodestone.parsers import CharacterParser
 
 @shared_task(acks_late=True)
 def import_character(**kwargs):
-    # Ignore attempts to reimport tasks
+    # Ignore attempts to reimport characters
     try:
         Character.objects.get(**kwargs)
         return False
