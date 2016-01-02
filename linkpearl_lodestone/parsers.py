@@ -177,6 +177,7 @@ class CharacterParser(BaseParser):
         
         
         # Classes and levels
+        levels = { level.job_id: level for level in obj.levels.all() }
         for table in soup.find_all(class_='class_list'):
             cells = table.find_all('td')
             for i in xrange(len(cells) / 3):
@@ -199,9 +200,14 @@ class CharacterParser(BaseParser):
                 exp_at, exp_of = [int(x) for x in exp_cell.string.split(' / ')]
                 
                 job = Job.objects.get_or_create(name=name)[0]
-                level = Level.objects.update_or_create(character=obj, job=job, defaults={
-                    'level': level, 'exp_at': exp_at, 'exp_of': exp_of
-                })[0]
+                if job.id in levels:
+                    lvl = levels[job.id]
+                    lvl.level = level
+                    lvl.exp_at = exp_at
+                    lvl.exp_of = exp_of
+                    lvl.save()
+                else:
+                    lvl = Level.objects.create(character=obj, job=job, level=level, exp_at=exp_at, exp_of=exp_of)
         
         
         

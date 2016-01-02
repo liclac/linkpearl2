@@ -112,8 +112,8 @@ class Character(models.Model):
         return u"{0} {1}".format(self.first_name, self.last_name)
 
 class Level(models.Model):
-    character = models.ForeignKey(Character)
-    job = models.ForeignKey(Job)
+    character = models.ForeignKey(Character, related_name='levels')
+    job = models.ForeignKey(Job, related_name='levels')
     level = models.IntegerField()
     exp_at = models.IntegerField()
     exp_of = models.IntegerField()
