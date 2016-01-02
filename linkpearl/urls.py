@@ -17,9 +17,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from linkpearl_lodestone.views import CharacterViewSet
+from linkpearl_lodestone.views import ServerViewSet, CharacterViewSet
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'servers', ServerViewSet)
 router.register(r'characters', CharacterViewSet)
 
 urlpatterns = [
