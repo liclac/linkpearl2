@@ -3,15 +3,15 @@ import DRFAdapter from './drf';
 export default DRFAdapter.extend({
   addTrailingSlashes: false,
   shouldReloadAll(store, snapshotRecordArray) {
-    return snapshotRecordArray.length == 0;
+    return snapshotRecordArray.length === 0;
   },
-  shouldReloadRecord(store, snapshot) {
+  shouldReloadRecord(/*store, snapshot*/) {
     return false;
   },
-  shouldBackgroundReloadRecord(store, snapshot) {
+  shouldBackgroundReloadRecord(/*store, snapshot*/) {
     return true;
   },
-  shouldBackgroundReloadAll(store, snapshotRecordArray) {
+  shouldBackgroundReloadAll(/*store, snapshotRecordArray*/) {
     return true;
   }
 });
