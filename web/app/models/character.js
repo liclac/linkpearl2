@@ -16,7 +16,7 @@ export default DS.Model.extend({
 
   gc: DS.belongsTo('grand-company', { async: false }),
   gc_rank: DS.attr('number'),
-  // fc
+  fc: DS.belongsTo('free-company', { async: true }),
 
   levels: DS.hasMany('level', { async: true }),
   // minions
