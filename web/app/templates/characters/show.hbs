@@ -8,21 +8,32 @@
   </h1>
 </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Class</th>
-      <th>Level</th>
-      <th>Progress</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each model.levels as |level|}}
-    <tr>
-      <td>{{level.job.name}}</td>
-      <td>{{level.level}}</td>
-      <td>{{level.exp_at}}/{{level.exp_of}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+<div class="col-md-9">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Level</th>
+        <th>Progress</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model.levels as |level|}}
+      <tr>
+        <td>{{level.job.name}}</td>
+        <td>{{level.level}}</td>
+        <td>{{level.exp_at}}/{{level.exp_of}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div class="col-md-3">
+  <dl class="dl-horizontal">
+    <dt>Race</dt>
+    <dd>{{model.race.name}}</dd>
+    <dt>Clan</dt>
+    <dd>{{model.clan_name}}</dd>
+  </dl>
+</div>

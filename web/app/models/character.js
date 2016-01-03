@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -9,7 +10,7 @@ export default DS.Model.extend({
   last_name: DS.attr('string'),
   title: DS.belongsTo('title', { async: true }),
 
-  // race
+  race: DS.belongsTo('race', { async: false }),
   clan: DS.attr('number'),
   gender: DS.attr('number'),
 
@@ -21,4 +22,8 @@ export default DS.Model.extend({
   levels: DS.hasMany('level', { async: true }),
   // minions
   // mounts
+
+  clan_name: Ember.computed('race', 'clan', function() {
+    return this.get('race.clan_' + this.get('clan'));
+  }),
 });

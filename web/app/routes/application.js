@@ -6,6 +6,7 @@ export default Ember.Route.extend({
     return Ember.RSVP.hash({
       'servers': this.store.findAll('server'),
       'jobs': this.store.findAll('job'),
+      'races': this.store.findAll('race'),
     });
   }
 });
