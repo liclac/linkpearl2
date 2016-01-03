@@ -51,7 +51,6 @@ class CharacterSerializer(serializers.ModelSerializer):
             'race', 'clan', 'gender',
             'gc', 'gc_rank', 'fc',
             'levels', 'minions', 'mounts',
-            'attrs',
         )
     
     levels = LevelSerializer(many=True, read_only=True)

@@ -21,6 +21,4 @@ export default DS.Model.extend({
   levels: DS.hasMany('level', { async: true }),
   // minions
   // mounts
-
-  attrs: DS.attr(),
 });
