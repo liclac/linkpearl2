@@ -14,7 +14,7 @@ export default DS.Model.extend({
   clan: DS.attr('number'),
   gender: DS.attr('number'),
 
-  // gc
+  gc: DS.belongsTo('grand-company', { async: false }),
   gc_rank: DS.attr('number'),
   // fc
 

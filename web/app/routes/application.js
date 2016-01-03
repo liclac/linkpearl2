@@ -7,6 +7,7 @@ export default Ember.Route.extend({
       'servers': this.store.findAll('server'),
       'jobs': this.store.findAll('job'),
       'races': this.store.findAll('race'),
+      'grand_companies': this.store.findAll('grand-company'),
     });
   }
 });
