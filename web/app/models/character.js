@@ -18,7 +18,7 @@ export default DS.Model.extend({
   // fc
 
   // jobs
-  levels: DS.hasMany('level'),
+  levels: DS.hasMany('level', { async: true }),
   // minions
   // mounts
 
