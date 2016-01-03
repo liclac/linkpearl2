@@ -5,6 +5,7 @@ export default Ember.Route.extend({
     // Preload globally interesting data on load
     return Ember.RSVP.hash({
       'servers': this.store.findAll('server'),
+      'jobs': this.store.findAll('job'),
     });
   }
 });
