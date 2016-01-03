@@ -1,5 +1,14 @@
-<ul>
-{{#each model as |character|}}
-  <li>{{#link-to 'characters.show' character}}{{character.first_name}} {{character.last_name}}{{/link-to}}</li>
-{{/each}}
-</ul>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |character|}}
+    <tr>
+      <td class="one-link">{{#link-to 'characters.show' character}}{{character.first_name}} {{character.last_name}}{{/link-to}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
