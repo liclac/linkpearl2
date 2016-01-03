@@ -1,4 +1,4 @@
-<table class="table item-table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -7,7 +7,7 @@
   <tbody>
     {{#each model as |server|}}
     <tr>
-      <td>{{server.name}}</td>
+      <td class="one-link">{{#link-to 'index'}}{{server.name}}{{/link-to}}</td>
     </tr>
     {{/each}}
   </tbody>

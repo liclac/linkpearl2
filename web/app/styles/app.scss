@@ -1,1 +1,16 @@
 @import "bootstrap";
+
+table {
+  tbody {
+    tr {
+      td.one-link {
+        padding: 0;
+
+        a {
+          display: block;
+          padding: 8px;
+        }
+      }
+    }
+  }
+}
