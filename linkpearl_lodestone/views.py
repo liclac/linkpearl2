@@ -37,4 +37,4 @@ class FreeCompanyViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CharacterViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CharacterSerializer
-    queryset = Character.objects.select_related('user').prefetch_related('jobs', 'minions', 'mounts').all()
+    queryset = Character.objects.select_related('user').prefetch_related('levels', 'minions', 'mounts').all()

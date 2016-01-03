@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Character
+from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Level, Character
 
 class RaceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,6 +38,20 @@ class FreeCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = FreeCompany
 
+class LevelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Level
+
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Character
+        fields = (
+            'id', 'lodestone_id', 'user',
+            'server', 'first_name', 'last_name', 'title',
+            'race', 'clan', 'gender',
+            'gc', 'gc_rank', 'fc',
+            'levels', 'minions', 'mounts',
+            'attrs',
+        )
+    
+    levels = LevelSerializer(many=True, read_only=True)

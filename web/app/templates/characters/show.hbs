@@ -1,3 +1,22 @@
 <div class="page-header">
   <h1>{{model.first_name}} {{model.last_name}} <small>{{#link-to 'servers.show' model.server}}{{model.server.name}}{{/link-to}}</small></h1>
 </div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>Level</th>
+      <th>Progress</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model.levels as |level|}}
+    <tr>
+      <td>{{level.job.name}}</td>
+      <td>{{level.level}}</td>
+      <td>{{level.exp_at}}/{{level.exp_of}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
