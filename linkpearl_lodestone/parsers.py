@@ -160,15 +160,17 @@ class CharacterParser(BaseParser):
         
         
         # Minions and Mounts
+        mount_box, minion_box = soup.find_all(class_='minion_box')
+        
         existing_mount_names = [ m.name for m in obj.mounts.all() ]
-        for link in soup.find(class_='minion_box').find_all('a'):
+        for link in mount_box.find_all('a'):
             name = link['title']
             if not name in existing_mount_names:
                 mount = Mount.objects.get_or_create(name=name)[0]
                 obj.mounts.add(mount)
         
         existing_minion_names = [ m.name for m in obj.minions.all() ]
-        for link in soup.find(class_='minion_box').find_all('a'):
+        for link in minion_box.find_all('a'):
             name = link['title']
             if not name in existing_minion_names:
                 minion = Minion.objects.get_or_create(name=name)[0]
