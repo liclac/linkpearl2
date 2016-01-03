@@ -9,9 +9,7 @@ Router.map(function() {
   this.route('characters', function() {
     this.route('show', { path: '/:character_id' });
   });
-  this.route('stats', function() {
-    this.route('servers');
-  });
+  this.route('servers', function() {});
 });
 
 export default Router;

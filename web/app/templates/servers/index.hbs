@@ -1,0 +1,14 @@
+<table class="table item-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |server|}}
+    <tr>
+      <td>{{server.name}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
