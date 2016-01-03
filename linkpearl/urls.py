@@ -22,12 +22,12 @@ from linkpearl_lodestone.views import RaceViewSet, ServerViewSet, GrandCompanyVi
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'races', RaceViewSet)
 router.register(r'servers', ServerViewSet)
-router.register(r'grand_companies', GrandCompanyViewSet)
+router.register(r'grand-companies', GrandCompanyViewSet)
 router.register(r'jobs', JobViewSet)
 router.register(r'titles', TitleViewSet)
 router.register(r'minions', MinionViewSet)
 router.register(r'mounts', MountViewSet)
-router.register(r'free_companies', FreeCompanyViewSet)
+router.register(r'free-companies', FreeCompanyViewSet)
 router.register(r'characters', CharacterViewSet)
 
 urlpatterns = [
