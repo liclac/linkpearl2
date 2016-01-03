@@ -49,4 +49,11 @@
     <a href="#" class="list-group-item">{{minion.name}}</a>
     {{/each}}
   </div>
+
+  <h3>Mounts</h3>
+  <div class="list-group">
+    {{#each model.mounts as |mount|}}
+    <a href="#" class="list-group-item">{{mount.name}}</a>
+    {{/each}}
+  </div>
 </div>

@@ -20,7 +20,7 @@ export default DS.Model.extend({
 
   levels: DS.hasMany('level', { async: true }),
   minions: DS.hasMany('minion', { async: false }),
-  // mounts
+  mounts: DS.hasMany('mounts', { async: false }),
 
   clan_name: Ember.computed('race', 'clan', function() {
     return this.get('race.clan_' + this.get('clan'));
