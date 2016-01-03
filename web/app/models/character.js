@@ -18,7 +18,6 @@ export default DS.Model.extend({
   gc_rank: DS.attr('number'),
   // fc
 
-  // jobs
   levels: DS.hasMany('level', { async: true }),
   // minions
   // mounts
