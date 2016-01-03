@@ -1,5 +1,11 @@
 <div class="page-header">
-  <h1>{{model.first_name}} {{model.last_name}} <small>{{#link-to 'servers.show' model.server}}{{model.server.name}}{{/link-to}}</small></h1>
+  <h1>
+    {{model.first_name}} {{model.last_name}}
+    <small>
+      {{#if model.title}}&lt;{{model.title.name}}&gt;{{/if}}
+      {{#link-to 'servers.show' model.server}}{{model.server.name}}{{/link-to}}
+    </small>
+  </h1>
 </div>
 
 <table class="table table-striped">

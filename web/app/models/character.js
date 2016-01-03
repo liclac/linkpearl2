@@ -7,7 +7,7 @@ export default DS.Model.extend({
   server: DS.belongsTo('server', { async: true }),
   first_name: DS.attr('string'),
   last_name: DS.attr('string'),
-  // title
+  title: DS.belongsTo('title', { async: true }),
 
   // race
   clan: DS.attr('number'),
