@@ -12,7 +12,7 @@ class ServerSerializer(serializers.ModelSerializer):
     population = serializers.SerializerMethodField()
     
     def get_population(self, obj):
-        return obj.characters.count()
+        return obj.characters__count
 
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import viewsets
 from linkpearl_lodestone.serializers import RaceSerializer, ServerSerializer, GrandCompanySerializer, JobSerializer, TitleSerializer, MinionSerializer, MountSerializer, FreeCompanySerializer, CharacterSerializer
 from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Character
@@ -8,7 +9,7 @@ class RaceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class ServerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServerSerializer
-    queryset = Server.objects.all()
+    queryset = Server.objects.annotate(Count('characters')).all()
 
 class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GrandCompanySerializer
