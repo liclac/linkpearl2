@@ -8,6 +8,21 @@
   </h1>
 </div>
 
+<div class="col-md-4">
+  <dl class="dl-horizontal">
+    <dt>Race</dt>
+    <dd>{{model.race.name}}</dd>
+    <dt>Clan</dt>
+    <dd>{{model.clan_name}}</dd>
+    <dt>Grand Company</dt>
+    <dd>{{model.gc.name}}</dd>
+    <dt>Grand Company Rank</dt>
+    <dd>{{model.gc_rank}}</dd>
+    <dt>Free Company</dt>
+    <dd>{{model.fc.name}}</dd>
+  </dl>
+</div>
+
 <div class="col-md-8">
   <table class="table table-striped">
     <thead>
@@ -27,19 +42,4 @@
       {{/each}}
     </tbody>
   </table>
-</div>
-
-<div class="col-md-4">
-  <dl class="dl-horizontal">
-    <dt>Race</dt>
-    <dd>{{model.race.name}}</dd>
-    <dt>Clan</dt>
-    <dd>{{model.clan_name}}</dd>
-    <dt>Grand Company</dt>
-    <dd>{{model.gc.name}}</dd>
-    <dt>Grand Company Rank</dt>
-    <dd>{{model.gc_rank}}</dd>
-    <dt>Free Company</dt>
-    <dd>{{model.fc.name}}</dd>
-  </dl>
 </div>
