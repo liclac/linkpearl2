@@ -23,6 +23,7 @@
 </div>
 
 <div class="col-md-8">
+  <h3>Classes</h3>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -41,4 +42,11 @@
       {{/each}}
     </tbody>
   </table>
+
+  <h3>Minions</h3>
+  <div class="list-group">
+    {{#each model.minions as |minion|}}
+    <a href="#" class="list-group-item">{{minion.name}}</a>
+    {{/each}}
+  </div>
 </div>

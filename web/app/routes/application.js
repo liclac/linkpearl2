@@ -8,6 +8,7 @@ export default Ember.Route.extend({
       'jobs': this.store.findAll('job'),
       'races': this.store.findAll('race'),
       'grand_companies': this.store.findAll('grand-company'),
+      'minions': this.store.findAll('minion'),
     });
   }
 });

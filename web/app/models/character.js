@@ -19,7 +19,7 @@ export default DS.Model.extend({
   fc: DS.belongsTo('free-company', { async: true }),
 
   levels: DS.hasMany('level', { async: true }),
-  // minions
+  minions: DS.hasMany('minion', { async: false }),
   // mounts
 
   clan_name: Ember.computed('race', 'clan', function() {
