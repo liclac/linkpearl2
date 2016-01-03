@@ -2,12 +2,14 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th width="10%">Population</th>
     </tr>
   </thead>
   <tbody>
     {{#each model as |server|}}
     <tr>
       <td class="one-link">{{#link-to 'servers.show' server}}{{server.name}}{{/link-to}}</td>
+      <td>{{server.population}}</td>
     </tr>
     {{/each}}
   </tbody>
