@@ -34,7 +34,8 @@
         <tr>
           <th>Class</th>
           <th>Level</th>
-          <th>Progress</th>
+          <th class="text-right">Progress</th>
+          <th>&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +43,8 @@
         <tr>
           <td>{{level.job.name}}</td>
           <td>{{level.level}}</td>
-          <td>{{level.exp_at}}/{{level.exp_of}}</td>
+          <td class="text-right">{{level.exp_at}}/{{level.exp_of}}</td>
+          <td><progress value="{{level.exp_at}}" max="{{level.exp_of}}" /></td>
         </tr>
         {{/each}}
       </tbody>
