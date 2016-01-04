@@ -1,5 +1,6 @@
 from django.db.models import Count
 from rest_framework import viewsets
+from rest_framework.decorators import detail_route
 from linkpearl.pagination import UnlimitedPageNumberPagination
 from linkpearl_lodestone.serializers import RaceSerializer, ServerSerializer, GrandCompanySerializer, JobSerializer, TitleSerializer, MinionSerializer, MountSerializer, FreeCompanySerializer, CharacterSerializer
 from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Character
@@ -18,6 +19,15 @@ class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GrandCompanySerializer
     pagination_class = UnlimitedPageNumberPagination
     queryset = GrandCompany.objects.annotate(members=Count('characters')).all()
+    
+    @detail_route()
+    def characters(self, request, pk=None):
+        gc = self.get_object()
+        viewset = CharacterViewSet(request=self.request, format_kwarg=self.format_kwarg)
+        
+        page = viewset.paginate_queryset(viewset.queryset.filter(gc_id=gc.id))
+        serializer = viewset.get_serializer(page, many=True)
+        return viewset.get_paginated_response(serializer.data)
 
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer

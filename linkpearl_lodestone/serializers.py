@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from rest_framework import serializers
 from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Level, Character
 
@@ -15,9 +16,10 @@ class ServerSerializer(serializers.ModelSerializer):
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = GrandCompany
-        fields = ('id', 'name', 'short', 'slug', 'members')
+        fields = ('id', 'name', 'short', 'slug', 'members', 'characters')
     
     members = serializers.ReadOnlyField()
+    characters = serializers.HyperlinkedIdentityField(view_name='grandcompany-characters')
 
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
