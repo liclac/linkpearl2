@@ -29,7 +29,6 @@
 </div>
 
 <div class="col-md-8">
-  <h3>Classes</h3>
   <div class="panel panel-default">
     <table class="table">
       <thead>
@@ -53,18 +52,22 @@
     </table>
   </div>
 
-  <h3>Minions</h3>
-  <div class="list-group">
-    {{#each sortedMinions as |minion|}}
-    <a href="#" class="list-group-item">{{minion.name}}</a>
-    {{/each}}
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Minions</h3></div>
+    <div class="list-group">
+      {{#each sortedMinions as |minion|}}
+      <a href="#" class="list-group-item">{{minion.name}}</a>
+      {{/each}}
+    </div>
   </div>
 
-  <h3>Mounts</h3>
-  <div class="list-group">
-    {{#each sortedMounts as |mount|}}
-    <a href="#" class="list-group-item">{{mount.name}}</a>
-    {{/each}}
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Mounts</h3></div>
+    <div class="list-group">
+      {{#each sortedMounts as |mount|}}
+      <a href="#" class="list-group-item">{{mount.name}}</a>
+      {{/each}}
+    </div>
   </div>
 </div>
 
