@@ -8,37 +8,44 @@ class RaceSerializer(serializers.ModelSerializer):
 class ServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Server
-        fields = ['id', 'name', 'slug', 'population']
+        fields = ('id', 'name', 'slug', 'population')
     
     population = serializers.ReadOnlyField()
 
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = GrandCompany
+        fields = ('id', 'name', 'short', 'slug')
 
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
+        fields = ('id', 'name', 'code')
 
 class TitleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Title
+        fields = ('id', 'name')
 
 class MinionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Minion
+        fields = ('id', 'name')
 
 class MountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mount
+        fields = ('id', 'name')
 
 class FreeCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = FreeCompany
+        fields = ('id', 'lodestone_id', 'name')
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
+        fields = ('id', 'level', 'exp_at', 'exp_of', 'character', 'job')
 
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
