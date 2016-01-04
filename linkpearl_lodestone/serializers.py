@@ -47,7 +47,7 @@ class FreeCompanySerializer(serializers.ModelSerializer):
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Level
-        fields = ('id', 'level', 'exp_at', 'exp_of', 'character', 'job')
+        fields = ('id', 'level', 'exp_at', 'exp_of', 'job')
 
 class CharacterSerializer(serializers.ModelSerializer):
     class Meta:
