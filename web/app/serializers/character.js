@@ -1,7 +1,7 @@
-import DRFSerializer from './drf';
+import Serializer from './application';
 import DS from 'ember-data';
 
-export default DRFSerializer.extend(DS.EmbeddedRecordsMixin, {
+export default Serializer.extend(DS.EmbeddedRecordsMixin, {
   attrs: {
     levels: { embedded: 'always' },
   }
