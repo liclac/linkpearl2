@@ -8,11 +8,9 @@ class RaceSerializer(serializers.ModelSerializer):
 class ServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Server
+        fields = ['id', 'name', 'slug', 'population']
     
-    population = serializers.SerializerMethodField()
-    
-    def get_population(self, obj):
-        return obj.characters__count
+    population = serializers.ReadOnlyField()
 
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:

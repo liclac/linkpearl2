@@ -9,7 +9,7 @@ class RaceViewSet(viewsets.ReadOnlyModelViewSet):
 
 class ServerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServerSerializer
-    queryset = Server.objects.annotate(Count('characters')).all()
+    queryset = Server.objects.annotate(population=Count('characters')).all()
 
 class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GrandCompanySerializer
