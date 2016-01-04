@@ -16,7 +16,7 @@
       {{#each sortedServers as |server|}}
       <tr>
         <td class="one-link">{{#link-to 'servers.show' server}}{{server.name}}{{/link-to}}</td>
-        <td>{{server.population}}</td>
+        <td>{{server.num_characters}}</td>
       </tr>
       {{/each}}
     </tbody>
