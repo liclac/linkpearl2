@@ -13,12 +13,12 @@ class RaceViewSet(viewsets.ReadOnlyModelViewSet):
 class ServerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServerSerializer
     pagination_class = UnlimitedPageNumberPagination
-    queryset = Server.objects.annotate(population=Count('characters')).all()
+    queryset = Server.objects.annotate(num_characters=Count('characters')).all()
 
 class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GrandCompanySerializer
     pagination_class = UnlimitedPageNumberPagination
-    queryset = GrandCompany.objects.annotate(members=Count('characters')).all()
+    queryset = GrandCompany.objects.annotate(num_characters=Count('characters')).all()
     
     @detail_route()
     def characters(self, request, pk=None):

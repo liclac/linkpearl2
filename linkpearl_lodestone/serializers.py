@@ -9,16 +9,16 @@ class RaceSerializer(serializers.ModelSerializer):
 class ServerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Server
-        fields = ('id', 'name', 'slug', 'population')
+        fields = ('id', 'name', 'slug', 'num_characters')
     
-    population = serializers.ReadOnlyField()
+    num_characters = serializers.ReadOnlyField()
 
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = GrandCompany
-        fields = ('id', 'name', 'short', 'slug', 'members', 'characters')
+        fields = ('id', 'name', 'short', 'slug', 'num_characters', 'characters')
     
-    members = serializers.ReadOnlyField()
+    num_characters = serializers.ReadOnlyField()
     characters = serializers.HyperlinkedIdentityField(view_name='grandcompany-characters')
 
 class JobSerializer(serializers.ModelSerializer):
