@@ -21,7 +21,7 @@ class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = GrandCompany.objects.annotate(num_characters=Count('characters')).all()
     
     @detail_route()
-    def characters(self, request, pk=None):
+    def characters(self, request, pk=None, **kwargs):
         gc = self.get_object()
         viewset = CharacterViewSet(request=self.request, format_kwarg=self.format_kwarg)
         
