@@ -13,7 +13,7 @@ class ServerViewSet(viewsets.ReadOnlyModelViewSet):
 
 class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GrandCompanySerializer
-    queryset = GrandCompany.objects.all()
+    queryset = GrandCompany.objects.annotate(members=Count('characters')).all()
 
 class JobViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = JobSerializer

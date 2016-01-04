@@ -15,7 +15,9 @@ class ServerSerializer(serializers.ModelSerializer):
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = GrandCompany
-        fields = ('id', 'name', 'short', 'slug')
+        fields = ('id', 'name', 'short', 'slug', 'members')
+    
+    members = serializers.ReadOnlyField()
 
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
