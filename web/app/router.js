@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('servers', function() {
     this.route('show', { path: '/:server_slug' });
   });
+  this.route('grand-companies', function() {});
 });
 
 export default Router;
