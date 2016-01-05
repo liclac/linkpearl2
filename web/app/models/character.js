@@ -31,4 +31,7 @@ export default DS.Model.extend({
   gender_icon: Ember.computed('gender_icon', function() {
     return this.get('gender') === 1 ? '\u2642' : '\u2640';
   }),
+  gc_rank_obj: Ember.computed('gc.ranks', 'gc_rank', function() {
+    return this.get('gc.ranks').findBy('rank', this.get('gc_rank'));
+  }),
 });
