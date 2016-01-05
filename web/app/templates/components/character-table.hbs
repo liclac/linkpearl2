@@ -1,0 +1,27 @@
+{{page-numbers content=model showFL=true currentPage=page}}
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class="hidden-xs">Title</th>
+      <th class="hidden-xs" colspan="2">Race</th>
+      <th class="hidden-sm hidden-xs">Gender</th>
+      <th class="hidden-sm hidden-xs">Server</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |character|}}
+    <tr>
+      <td class="one-link">{{#link-to 'characters.show' character}}{{character.first_name}} {{character.last_name}}{{/link-to}}</td>
+      <td class="hidden-xs">{{character.title.name}}</td>
+      <td class="hidden-xs">{{character.race.name}}</td>
+      <td class="hidden-sm hidden-xs">{{character.clan_name}}</td>
+      <td class="hidden-sm hidden-xs">{{character.gender_icon}}</td>
+      <td class="one-link">{{#link-to 'servers.show' character.server}}{{character.server.name}}{{/link-to}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+{{page-numbers content=model showFL=true currentPage=page}}
