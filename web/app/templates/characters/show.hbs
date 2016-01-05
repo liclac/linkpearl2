@@ -16,7 +16,7 @@
     <dt>Clan</dt>
     <dd>{{model.clan_name}}</dd>
     <dt>Grand Company</dt>
-    <dd>{{model.gc.name}}</dd>
+    <dd>{{#link-to 'grand-companies.show' model.gc}}{{model.gc.name}}{{/link-to}}</dd>
     <dt>Grand Company Rank</dt>
     <dd>{{model.gc_rank}}</dd>
     <dt>Free Company</dt>

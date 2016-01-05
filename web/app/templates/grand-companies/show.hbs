@@ -1,0 +1,29 @@
+<div class="row">
+
+<div class="page-header col-xs-12">
+  <h1>The {{model.name}}</h1>
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-4">
+  <dl class="dl-horizontal">
+    <dt>Members</dt>
+    <dd>{{model.num_characters}}</dd>
+  </dl>
+</div>
+
+<div class="col-md-8">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Ranks</h3></div>
+    <ul class="list-group">
+      {{#each model.ranks as |rank|}}
+      <li class="list-group-item">{{rank.name}}</li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
+
+</div>

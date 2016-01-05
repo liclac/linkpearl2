@@ -16,10 +16,19 @@ class ServerSerializer(serializers.ModelSerializer):
 class GrandCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = GrandCompany
-        fields = ('id', 'name', 'short', 'slug', 'num_characters', 'characters')
+        fields = ('id', 'name', 'short', 'slug', 'ranks', 'num_characters', 'characters')
+    
+    ranks = serializers.SerializerMethodField()
     
     num_characters = serializers.ReadOnlyField()
     characters = serializers.HyperlinkedIdentityField(view_name='grandcompany-characters')
+    
+    def get_ranks(self, obj):
+        return [{
+            'id': (obj.id * 100) + i,
+            'rank': i,
+            'name': rank.format(obj.short),
+        } for i, rank in enumerate(obj.RANKS)]
 
 class JobSerializer(serializers.ModelSerializer):
     class Meta:

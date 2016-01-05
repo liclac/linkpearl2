@@ -15,7 +15,7 @@
     <tbody>
       {{#each sortedGCs as |gc|}}
       <tr>
-        <td>{{gc.name}}</td>
+        <td class="one-link">{{#link-to 'grand-companies.show' gc}}{{gc.name}}{{/link-to}}</td>
         <td>{{gc.num_characters}}</td>
       </tr>
       {{/each}}

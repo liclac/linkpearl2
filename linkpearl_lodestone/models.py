@@ -28,6 +28,19 @@ class GrandCompany(CachingMixin, models.Model):
     class Meta:
         verbose_name_plural = u"grand companies"
     
+    RANKS = [
+        u"Recruit",
+        u"{0} Private Third Class",
+        u"{0} Private Second Class",
+        u"{0} Private First Class",
+        u"{0} Corporal",
+        u"{0} Sergeant Third Class",
+        u"{0} Sergeant Second Class",
+        u"{0} Sergeant First Class",
+        u"Chief {0} Sergeant",
+        u"Second {0} Lieutenant",
+    ]
+    
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
     short = models.CharField(max_length=10)
