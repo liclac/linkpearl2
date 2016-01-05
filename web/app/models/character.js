@@ -25,4 +25,10 @@ export default DS.Model.extend({
   clan_name: Ember.computed('race', 'clan', function() {
     return this.get('race.clan_' + this.get('clan'));
   }),
+  gender_name: Ember.computed('gender_name', function() {
+    return this.get('gender') === 1 ? "Male" : "Female";
+  }),
+  gender_icon: Ember.computed('gender_icon', function() {
+    return this.get('gender') === 1 ? '\u2642' : '\u2640';
+  }),
 });
