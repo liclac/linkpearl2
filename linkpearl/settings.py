@@ -167,7 +167,7 @@ BROKER_URL = 'amqp://linkpearl:linkpearl@10.10.10.10:5672//'
 
 REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'linkpearl.pagination.PageNumberPagination',
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
