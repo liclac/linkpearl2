@@ -1,6 +1,7 @@
 from django.db.models import Count
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
 from linkpearl.pagination import UnlimitedPageNumberPagination
 from linkpearl_lodestone.serializers import RaceSerializer, ServerSerializer, GrandCompanySerializer, JobSerializer, TitleSerializer, MinionSerializer, MountSerializer, FreeCompanySerializer, CharacterSerializer
 from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, Minion, Mount, FreeCompany, Character
@@ -9,6 +10,12 @@ class RaceViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RaceSerializer
     pagination_class = UnlimitedPageNumberPagination
     queryset = Race.objects.annotate(num_characters=Count('characters')).all()
+    
+    @list_route()
+    def stats(self, request, **kwargs):
+        return Response(
+            Character.objects.values('race', 'clan').annotate(num_characters=Count('clan'))
+        )
 
 class ServerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServerSerializer
