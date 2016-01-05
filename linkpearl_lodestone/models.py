@@ -10,7 +10,8 @@ class Race(CachingMixin, models.Model):
     clan_1 = models.CharField(max_length=50)
     clan_2 = models.CharField(max_length=50, blank=True)
     
-    objects = CachingManager()
+    objects = models.Manager()
+    cached = CachingManager()
     
     def __unicode__(self):
         return self.name
@@ -19,7 +20,8 @@ class Server(CachingMixin, models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
     
-    objects = CachingManager()
+    objects = models.Manager()
+    cached = CachingManager()
     
     def __unicode__(self):
         return self.name
@@ -45,7 +47,8 @@ class GrandCompany(CachingMixin, models.Model):
     slug = models.SlugField(max_length=50, unique=True)
     short = models.CharField(max_length=10)
     
-    objects = CachingManager()
+    objects = models.Manager()
+    cached = CachingManager()
     
     def __unicode__(self):
         return self.name
@@ -54,7 +57,8 @@ class Job(CachingMixin, models.Model):
     name = models.CharField(max_length=50, unique=True)
     code = models.CharField(max_length=3, blank=True)
     
-    objects = CachingManager()
+    objects = models.Manager()
+    cached = CachingManager()
     
     def __unicode__(self):
         return self.name
@@ -68,7 +72,8 @@ class Title(models.Model):
 class Minion(CachingMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     
-    objects = CachingManager()
+    objects = models.Manager()
+    cached = CachingManager()
     
     def __unicode__(self):
         return self.name
@@ -76,7 +81,8 @@ class Minion(CachingMixin, models.Model):
 class Mount(CachingMixin, models.Model):
     name = models.CharField(max_length=100, unique=True)
     
-    objects = CachingManager()
+    objects = models.Manager()
+    cached = CachingManager()
     
     def __unicode__(self):
         return self.name

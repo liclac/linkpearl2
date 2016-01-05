@@ -62,17 +62,17 @@ class CharacterParser(BaseParser):
         race_s, clan_s, gender_s = race_box.string.split(' / ')
         
         obj.lodestone_id = int(id_s)
-        obj.server = Server.objects.get_or_create(name=server_s, defaults={'slug': slugify(server_s)})[0]
+        obj.server = Server.cached.get_or_create(name=server_s, defaults={'slug': slugify(server_s)})[0]
         obj.first_name, obj.last_name = name_s.split(' ')
         
         title_e = name_box.find(class_='chara_title')
         if title_e:
             title_s = title_e.string
-            obj.title = Title.objects.get_or_create(name=title_s)[0]
+            obj.title = Title.cached.get_or_create(name=title_s)[0]
         else:
             obj.title = None
         
-        obj.race = Race.objects.get_or_create(name=race_s, defaults={'slug': slugify(race_s), 'clan_1': clan_s})[0]
+        obj.race = Race.cached.get_or_create(name=race_s, defaults={'slug': slugify(race_s), 'clan_1': clan_s})[0]
         obj.clan = 1 if clan_s == obj.race.clan_1 else 2
         if obj.clan == 2 and not obj.race.clan_2:
             obj.race.clan_2 = clan_s
@@ -99,11 +99,11 @@ class CharacterParser(BaseParser):
                         break
                 
                 try:
-                    obj.gc = GrandCompany.objects.get(name=gc_name)
+                    obj.gc = GrandCompany.cached.get(name=gc_name)
                 except GrandCompany.DoesNotExist:
                     slug = slugify(gc_name.split(' ')[-1])
                     short = gc_rank_match.group(1)
-                    obj.gc = GrandCompany.objects.create(name=gc_name, slug=slug, short=short)
+                    obj.gc = GrandCompany.cached.create(name=gc_name, slug=slug, short=short)
             
             elif key == u"Free Company":
                 fc_present = True
@@ -112,7 +112,7 @@ class CharacterParser(BaseParser):
                 fc_name = fc_link.string
                 fc_id = filter(None, fc_link['href'].split('/'))[-1]
                 
-                obj.fc = FreeCompany.objects.get_or_create(lodestone_id=fc_id, defaults={'name': fc_name})[0]
+                obj.fc = FreeCompany.cached.get_or_create(lodestone_id=fc_id, defaults={'name': fc_name})[0]
         
         if not fc_present:
             obj.fc = None
@@ -166,14 +166,14 @@ class CharacterParser(BaseParser):
         for link in mount_box.find_all('a'):
             name = link['title']
             if not name in existing_mount_names:
-                mount = Mount.objects.get_or_create(name=name)[0]
+                mount = Mount.cached.get_or_create(name=name)[0]
                 obj.mounts.add(mount)
         
         existing_minion_names = [ m.name for m in obj.minions.all() ]
         for link in minion_box.find_all('a'):
             name = link['title']
             if not name in existing_minion_names:
-                minion = Minion.objects.get_or_create(name=name)[0]
+                minion = Minion.cached.get_or_create(name=name)[0]
                 obj.minions.add(minion)
         
         
@@ -201,7 +201,7 @@ class CharacterParser(BaseParser):
                 level = int(level_cell.string)
                 exp_at, exp_of = [int(x) for x in exp_cell.string.split(' / ')]
                 
-                job = Job.objects.get_or_create(name=name)[0]
+                job = Job.cached.get_or_create(name=name)[0]
                 if job.id in levels:
                     lvl = levels[job.id]
                     lvl.level = level
@@ -209,7 +209,7 @@ class CharacterParser(BaseParser):
                     lvl.exp_of = exp_of
                     lvl.save()
                 else:
-                    lvl = Level.objects.create(character=obj, job=job, level=level, exp_at=exp_at, exp_of=exp_of)
+                    lvl = Level.cached.create(character=obj, job=job, level=level, exp_at=exp_at, exp_of=exp_of)
         
         
         
