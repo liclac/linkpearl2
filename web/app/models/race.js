@@ -5,4 +5,5 @@ export default DS.Model.extend({
   slug: DS.attr('string'),
   clan_1: DS.attr('string'),
   clan_2: DS.attr('string'),
+  num_characters: DS.attr('number'),
 });

@@ -5,7 +5,9 @@ from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, M
 class RaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Race
-        fields = ('id', 'name', 'slug', 'clan_1', 'clan_2')
+        fields = ('id', 'name', 'slug', 'clan_1', 'clan_2', 'num_characters')
+    
+    num_characters = serializers.ReadOnlyField()
 
 class ServerSerializer(serializers.ModelSerializer):
     class Meta:

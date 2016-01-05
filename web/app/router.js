@@ -15,6 +15,7 @@ Router.map(function() {
   this.route('grand-companies', function() {
     this.route('show', { path: '/:gc_slug' });
   });
+  this.route('races', function() {});
 });
 
 export default Router;

@@ -1,0 +1,26 @@
+<div class="row">
+
+<div class="col-md-9">
+  {{pie-chart data=chartData}}
+</div>
+
+<div class="col-md-3">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th width="10%">Members</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each sortedRaces as |race|}}
+      <tr>
+        <td>{{race.name}}</td>
+        <td>{{race.num_characters}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+</div>

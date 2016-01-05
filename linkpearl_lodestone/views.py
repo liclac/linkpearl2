@@ -8,7 +8,7 @@ from linkpearl_lodestone.models import Race, Server, GrandCompany, Job, Title, M
 class RaceViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RaceSerializer
     pagination_class = UnlimitedPageNumberPagination
-    queryset = Race.objects.all()
+    queryset = Race.objects.annotate(num_characters=Count('characters')).all()
 
 class ServerViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ServerSerializer
