@@ -6,6 +6,9 @@
 
 <div class="col-md-3">
   <form>
+    <div class="form-group">
+      {{select-2 content=model.races value=filterByRace optionLabelPath='name' placeholder="Filter by Race" allowClear=true}}
+    </div>
     <div class="checkbox">
       <label>
         {{input type='checkbox' checked=splitByClan}}

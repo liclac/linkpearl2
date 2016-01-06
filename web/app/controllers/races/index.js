@@ -4,8 +4,9 @@ import _ from 'lodash/lodash';
 export default Ember.Controller.extend({
   splitByClan: false,
   splitByGender: false,
+  filterByRace: null,
 
-  tableData: Ember.computed('model.races', 'model.stats', 'splitByClan', 'splitByGender', function() {
+  tableData: Ember.computed('model.races', 'model.stats', 'splitByClan', 'splitByGender', 'filterByRace', function() {
     // Reduce races into a plain object for quick id lookups
     let races = this.get('model.races').reduce((val, race) => {
       val[race.get('id')] = {
@@ -30,6 +31,14 @@ export default Ember.Controller.extend({
 
     // Make it into an array of values
     let data = _.values(races);
+
+    // If requested, filter the data by race
+    if (this.get('filterByRace')) {
+      let filterID = this.get('filterByRace.id');
+      data = data.filter((race) => {
+        return race.id === filterID;
+      });
+    }
 
     // If requested, split the data by clans
     if (this.get('splitByClan')) {
