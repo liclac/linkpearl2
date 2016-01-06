@@ -14,7 +14,7 @@ class RaceViewSet(viewsets.ReadOnlyModelViewSet):
     @list_route()
     def stats(self, request, **kwargs):
         return Response(
-            Character.objects.values('race', 'clan').annotate(num_characters=Count('clan'))
+            Character.objects.values('race', 'clan', 'gender').annotate(num_characters=Count('clan'))
         )
 
 class ServerViewSet(viewsets.ReadOnlyModelViewSet):
