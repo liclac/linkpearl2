@@ -61,4 +61,6 @@ class FreeCompanyViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CharacterViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CharacterSerializer
+    filter_fields = ('lodestone_id', 'first_name', 'last_name', 'server', 'title', 'race', 'clan', 'gender', 'gc', 'gc_rank', 'fc')
+    search_fields = ('first_name', 'last_name')
     queryset = Character.objects.select_related('user').prefetch_related('levels', 'minions', 'mounts').all()
