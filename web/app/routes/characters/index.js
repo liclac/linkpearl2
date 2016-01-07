@@ -6,6 +6,7 @@ export default Ember.Route.extend(RouteMixin, {
   queryParams: {
     search: { refreshModel: true },
     race: { refreshModel: true },
+    clan: { refreshModel: true },
   },
   resetController: function(controller, isExiting/*, transition*/) {
     if (isExiting) {

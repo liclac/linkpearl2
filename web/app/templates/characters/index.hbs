@@ -13,6 +13,11 @@
     <div class="form-group">
       {{select-2 content=races value=uiRace optionLabelPath='name' placeholder="Race" allowClear=true}}
     </div>
+    {{#if uiRace}}
+    <div class="form-group">
+      {{select-2 content=clans value=uiClan optionLabelPath='name' placeholder="Clan" allowClear=true}}
+    </div>
+    {{/if}}
 
     <button type="submit" class="btn btn-default btn-block">Apply</button>
   </form>
