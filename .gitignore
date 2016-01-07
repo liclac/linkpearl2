@@ -9,3 +9,6 @@ celerybeat-schedule
 /provisioning/pillar/local.sls
 /linkpearl/local_settings.py
 *.sublime-workspace
+
+/dist/static/*
+!/dist/static/.gitkeep

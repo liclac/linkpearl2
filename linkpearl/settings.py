@@ -148,6 +148,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'dist/static')
+
 
 # Django-Celery integration (task autodetection, etc)
 # https://pypi.python.org/pypi/django-celery
