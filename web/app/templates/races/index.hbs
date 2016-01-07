@@ -33,10 +33,13 @@
       </tr>
     </thead>
     <tbody>
-      {{#each tableData as |race|}}
+      {{#each data as |d|}}
       <tr>
-        <td>{{race.name}}</td>
-        <td>{{race.num_characters}}</td>
+        <td>
+          {{d.race.name}} {{#if d.gender}}{{d.gender.symbol}}{{/if}}
+          {{#if d.clan}}<small class="show">{{d.clan.name}}</small>{{/if}}
+        </td>
+        <td>{{d.num_characters}}</td>
       </tr>
       {{/each}}
     </tbody>
