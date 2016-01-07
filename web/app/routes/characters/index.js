@@ -5,6 +5,7 @@ export default Ember.Route.extend(RouteMixin, {
   perPage: 100,
   queryParams: {
     search: { refreshModel: true },
+    race: { refreshModel: true },
   },
   resetController: function(controller, isExiting/*, transition*/) {
     if (isExiting) {
