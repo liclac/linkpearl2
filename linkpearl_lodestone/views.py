@@ -47,6 +47,7 @@ class JobViewSet(viewsets.ReadOnlyModelViewSet):
 
 class TitleViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = TitleSerializer
+    pagination_class = UnlimitedPageNumberPagination
     queryset = Title.objects.all()
 
 class MinionViewSet(viewsets.ReadOnlyModelViewSet):

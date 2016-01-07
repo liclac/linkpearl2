@@ -10,6 +10,7 @@ export default Ember.Route.extend({
       'grand_companies': this.store.findAll('grand-company'),
       'minions': this.store.findAll('minion'),
       'mounts': this.store.findAll('mount'),
+      'titles': this.store.findAll('title'),
     });
   }
 });
