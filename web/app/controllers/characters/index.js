@@ -53,6 +53,14 @@ export default Ember.Controller.extend({
       this.set('clan', this.get('uiClan.id'));
       this.set('gender', this.get('uiGender.id'));
       this.set('server', this.get('uiServer.id'));
-    }
+    },
+    clear: function() {
+      this.set('uiSearch', '');
+      this.set('uiRace', null);
+      this.set('uiClan', null);
+      this.set('uiGender', null);
+      this.set('uiServer', null);
+      this.send('filter');
+    },
   },
 });

@@ -25,7 +25,8 @@
       {{select-2 content=servers value=uiServer optionLabelPath='name' placeholder="Server" allowClear=true}}
     </div>
 
-    <button type="submit" class="btn btn-default btn-block">Apply</button>
+    <button class="btn btn-default btn-block" {{action 'clear'}}>Clear</button>
+    <button type="submit" class="btn btn-primary btn-block">Apply</button>
   </form>
 </div>
 
