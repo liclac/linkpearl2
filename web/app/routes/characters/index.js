@@ -13,6 +13,7 @@ export default Ember.Route.extend(RouteMixin, {
   resetController: function(controller, isExiting/*, transition*/) {
     if (isExiting) {
       controller.set('page', 1);
+      controller.send('clear');
     }
   },
   model: function(params) {
