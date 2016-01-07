@@ -1,5 +1,18 @@
 <div class="row">
 
-{{character-table model=model page=page}}
+<div class="col-md-9">
+  {{character-table model=model page=page}}
+</div>
+
+<div class="col-md-3">
+  <h3 class="nothing-above">Filter</h3>
+  <form {{action 'filter' on='submit'}}>
+    <div class="form-group">
+      {{input type=text value=uiSearch placeholder="Search" class='form-control'}}
+    </div>
+
+    <button type="submit" class="btn btn-default btn-block">Apply</button>
+  </form>
+</div>
 
 </div>
