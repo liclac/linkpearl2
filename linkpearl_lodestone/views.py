@@ -27,6 +27,10 @@ class GrandCompanyViewSet(viewsets.ReadOnlyModelViewSet):
     pagination_class = UnlimitedPageNumberPagination
     queryset = GrandCompany.objects.annotate(num_characters=Count('characters')).all()
     
+    @list_route()
+    def stats(self, request, **kwargs):
+        return Response(Character.objects.values('gc', 'gc_rank').annotate(num_characters=Count('id')))
+    
     @detail_route()
     def characters(self, request, pk=None, **kwargs):
         gc = self.get_object()
