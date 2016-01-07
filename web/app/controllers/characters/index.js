@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  queryParams: ['page', 'search', 'race', 'clan'],
+  queryParams: ['page', 'search', 'race', 'clan', 'gender', 'server'],
   page: 1,
 
   search: '',
@@ -19,6 +19,16 @@ export default Ember.Controller.extend({
     return this.get('clan') ? this.get('clans')[this.get('clan') + 1] : null;
   }),
 
+  gender: null,
+  uiGender: Ember.computed('gender', function() {
+    return this.get('gender') ? this.get('genders')[this.get('gender') + 1] : null;
+  }),
+
+  server: null,
+  uiServer: Ember.computed('server', function() {
+    return this.get('server') ? this.store.peekRecord('server', this.get('server')) : null;
+  }),
+
   races: Ember.computed(function() {
     return this.store.peekAll('race');
   }),
@@ -28,12 +38,21 @@ export default Ember.Controller.extend({
       { id: 2, name: this.get('uiRace.clan_2') },
     ];
   }),
+  genders: [
+    { id: 1, name: "Male" },
+    { id: 2, name: "Female" },
+  ],
+  servers: Ember.computed(function() {
+    return this.store.peekAll('server');
+  }),
 
   actions: {
     filter: function() {
       this.set('search', this.get('uiSearch'));
       this.set('race', this.get('uiRace.id'));
       this.set('clan', this.get('uiClan.id'));
+      this.set('gender', this.get('uiGender.id'));
+      this.set('server', this.get('uiServer.id'));
     }
   },
 });
