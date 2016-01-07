@@ -5,10 +5,14 @@ export default Ember.Controller.extend({
   page: 1,
 
   search: '',
-  uiSearch: '',
+  uiSearch: Ember.computed('search', function() {
+    return this.get('search');
+  }),
 
   race: null,
-  uiRace: null,
+  uiRace: Ember.computed('race', function() {
+    return this.get('race') ? this.store.peekRecord('race', this.get('race')) : null;
+  }),
 
   races: Ember.computed(function() {
     return this.store.peekAll('race');
@@ -19,8 +23,4 @@ export default Ember.Controller.extend({
       this.set('race', this.get('uiRace.id'));
     }
   },
-  updateUI: Ember.observer('search', 'race', function() {
-    this.set('uiSearch', this.get('search'));
-    this.set('uiRace', this.store.peekRecord('race', this.get('race')));
-  }),
 });
