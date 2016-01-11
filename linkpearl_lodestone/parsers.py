@@ -68,7 +68,7 @@ class CharacterParser(BaseParser):
         title_e = name_box.find(class_='chara_title')
         if title_e:
             title_s = title_e.string
-            obj.title = Title.cached.get_or_create(name=title_s)[0]
+            obj.title = Title.objects.get_or_create(name=title_s)[0]
         else:
             obj.title = None
         
@@ -112,7 +112,7 @@ class CharacterParser(BaseParser):
                 fc_name = fc_link.string
                 fc_id = filter(None, fc_link['href'].split('/'))[-1]
                 
-                obj.fc = FreeCompany.cached.get_or_create(lodestone_id=fc_id, defaults={'name': fc_name})[0]
+                obj.fc = FreeCompany.objects.get_or_create(lodestone_id=fc_id, defaults={'name': fc_name})[0]
         
         if not fc_present:
             obj.fc = None
@@ -209,7 +209,7 @@ class CharacterParser(BaseParser):
                     lvl.exp_of = exp_of
                     lvl.save()
                 else:
-                    lvl = Level.cached.create(character=obj, job=job, level=level, exp_at=exp_at, exp_of=exp_of)
+                    lvl = Level.objects.create(character=obj, job=job, level=level, exp_at=exp_at, exp_of=exp_of)
         
         
         
